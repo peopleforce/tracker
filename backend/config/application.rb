@@ -23,5 +23,10 @@ module HealthTracker
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Configure CSRF for API
+    config.action_controller.allow_forgery_protection = true
+    config.action_controller.forgery_protection_origin_check = true
+    config.action_controller.default_protect_from_forgery = true
   end
 end 

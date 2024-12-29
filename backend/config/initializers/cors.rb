@@ -1,9 +1,10 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8081' # or whatever your React Native dev server origin is
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: false
+    origins ['*']
+    resource '/api/*',
+      headers: %w(Authorization),
+      methods: :any,
+      expose: %w(Authorization),
+      max_age: 600
   end
 end 

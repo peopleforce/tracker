@@ -28,10 +28,11 @@ export default function Login() {
       const credentials = loginSchema.parse({ email, password });
       setLoading(true);
 
-      const response = await axios.post('http://localhost:3000/users/sign_in', credentials, {
+      const response = await axios.post('http://localhost:3000/api/users/sign_in', credentials, {
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Authorization': `Bearer`
         }
       });
       
