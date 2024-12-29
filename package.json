@@ -1,0 +1,13 @@
+{
+    "name": "biomarker-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "backend": "cd backend && bin/dev",
+      "mobile": "cd mobile && npx expo start",
+      "dev": "concurrently \"npm run backend\" \"npm run mobile\""
+    },
+    "devDependencies": {
+      "concurrently": "^8.2.2"
+    }
+  }

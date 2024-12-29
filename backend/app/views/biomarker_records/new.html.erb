@@ -1,0 +1,76 @@
+<div class="max-w-2xl mx-auto">
+  <div class="bg-white shadow rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">
+      Add Record for <%= @biomarker.name %>
+    </h1>
+
+    <%= form_with(model: [@biomarker, @biomarker_record], class: "space-y-6") do |f| %>
+      <% if @biomarker_record.errors.any? %>
+        <div class="rounded-md bg-red-50 p-4 mb-6">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">
+                <%= pluralize(@biomarker_record.errors.count, "error") %> prohibited this record from being saved:
+              </h3>
+              <div class="mt-2 text-sm text-red-700">
+                <ul class="list-disc pl-5 space-y-1">
+                  <% @biomarker_record.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div>
+        <%= f.label :value, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1 flex items-center">
+          <%= f.number_field :value, step: 'any',
+              class: "block w-full rounded-md shadow-sm sm:text-sm #{@biomarker_record.errors[:value].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-teal-500 focus:border-teal-500'}" %>
+          <span class="ml-2 text-gray-500"><%= @biomarker.unit %></span>
+        </div>
+        <% if @biomarker_record.errors[:value].any? %>
+          <p class="mt-2 text-sm text-red-600"><%= @biomarker_record.errors[:value].join(", ") %></p>
+        <% end %>
+        <p class="mt-1 text-sm text-gray-500">
+          Reference Range: <%= @biomarker.reference_range %>
+        </p>
+      </div>
+
+      <div>
+        <%= f.label :recorded_at, "Date and Time", class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= f.datetime_local_field :recorded_at,
+              class: "block w-full rounded-md shadow-sm sm:text-sm #{@biomarker_record.errors[:recorded_at].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-teal-500 focus:border-teal-500'}" %>
+        </div>
+        <% if @biomarker_record.errors[:recorded_at].any? %>
+          <p class="mt-2 text-sm text-red-600"><%= @biomarker_record.errors[:recorded_at].join(", ") %></p>
+        <% end %>
+      </div>
+
+      <div>
+        <%= f.label :notes, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= f.text_area :notes, rows: 3,
+              class: "block w-full rounded-md shadow-sm sm:text-sm #{@biomarker_record.errors[:notes].any? ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-teal-500 focus:border-teal-500'}" %>
+        </div>
+        <% if @biomarker_record.errors[:notes].any? %>
+          <p class="mt-2 text-sm text-red-600"><%= @biomarker_record.errors[:notes].join(", ") %></p>
+        <% end %>
+      </div>
+
+      <div class="flex justify-end space-x-3">
+        <%= link_to "Cancel", biomarkers_path, class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" %>
+        <%= f.submit "Save Record", 
+            class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" %>
+      </div>
+    <% end %>
+  </div>
+</div> 

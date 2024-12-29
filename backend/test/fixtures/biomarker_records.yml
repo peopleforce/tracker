@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  biomarker: one
+  value: 9.99
+  recorded_at: 2024-12-29 12:01:52
+  notes: MyText
+
+two:
+  user: two
+  biomarker: two
+  value: 9.99
+  recorded_at: 2024-12-29 12:01:52
+  notes: MyText

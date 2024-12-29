@@ -1,0 +1,117 @@
+<div class="space-y-6">
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-900">Biomarker Records</h1>
+    <%= link_to "Track New Biomarker", biomarkers_path, 
+        class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" %>
+  </div>
+
+  <!-- Charts for each tracked biomarker -->
+  <div class="grid grid-cols-1 gap-6">
+    <% current_user.biomarkers.each do |biomarker| %>
+      <% records = biomarker.biomarker_records.where(user: current_user).order(:recorded_at) %>
+      <% if records.any? %>
+        <div class="bg-white shadow rounded-lg p-6">
+          <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-900"><%= biomarker.name %></h2>
+            <p class="text-sm text-gray-500">
+              Reference Range: <%= biomarker.reference_range %>
+              <span class="ml-2">(<%= biomarker.unit %>)</span>
+            </p>
+          </div>
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+        
+            
+
+          <!-- Latest measurement -->
+          <div class="mt-4 flex items-center justify-between border-t pt-4">
+            <div>
+              <p class="text-sm text-gray-500">Latest Measurement</p>
+              <p class="text-lg font-medium text-gray-900">
+                <%= records.last.value %> <%= biomarker.unit %>
+                <span class="text-sm text-gray-500">
+                  (<%= records.last.recorded_at.strftime("%B %d, %Y") %>)
+                </span>
+              </p>
+            </div>
+            <%= link_to "Add New Measurement", new_biomarker_biomarker_record_path(biomarker),
+                class: "inline-flex items-center px-4 py-2 border border-teal-600 text-sm font-medium rounded-md text-teal-600 bg-white hover:bg-teal-50" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Records Table -->
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <% if @biomarker_records.any? %>
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Biomarker</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @biomarker_records.each do |record| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900"><%= record.biomarker.name %></div>
+                <div class="text-sm text-gray-500"><%= record.biomarker.code %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">
+                  <%= record.value %> <%= record.biomarker.unit %>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">
+                  <%= record.recorded_at.strftime("%B %d, %Y") %>
+                </div>
+                <div class="text-sm text-gray-500">
+                  <%= record.recorded_at.strftime("%I:%M %p") %>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm text-gray-900"><%= record.notes %></div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="p-6 text-center text-gray-500">
+        No records found. Start by <%= link_to "tracking a biomarker", biomarkers_path, class: "text-teal-600 hover:text-teal-800" %>.
+      </div>
+    <% end %>
+  </div>
+</div> 
