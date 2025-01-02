@@ -33,7 +33,7 @@ Devise.setup do |config|
   require 'devise/orm/active_record'
 
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
+    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
   end
 
   # ==> Configuration for any authentication mechanism
