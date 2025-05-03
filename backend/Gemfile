@@ -47,6 +47,8 @@ gem 'rack-cors'
 
 gem "view_component", "~> 3.8"
 
+gem "foreman"
+
 group :development, :test do
 
   gem "dotenv-rails"

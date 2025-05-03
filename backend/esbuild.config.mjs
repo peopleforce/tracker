@@ -11,32 +11,13 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 esbuild
   .context({
     entryPoints: [
-      path.join(process.cwd(), "app/javascript/application.js"),
-      path.join(process.cwd(), "app/assets/stylesheets/application.tailwind.css")
+      path.join(process.cwd(), "app/javascript/application.js")
     ],
     outdir: path.join(process.cwd(), "app/assets/builds"),
     absWorkingDir: process.cwd(),
     bundle: true,
     plugins: [
-      rails(),
-      {
-        name: 'postcss',
-        setup(build) {
-          build.onLoad({ filter: /\.css$/ }, async (args) => {
-            const css = await readFile(args.path, 'utf8')
-            const result = await postcss([
-              tailwindcss,
-              autoprefixer
-            ]).process(css, {
-              from: args.path,
-            })
-            return {
-              contents: result.css,
-              loader: 'css',
-            }
-          })
-        },
-      },
+      rails()
     ],
     resolveExtensions: ['.js', '.css'],
     nodePaths: ['node_modules']

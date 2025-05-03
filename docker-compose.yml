@@ -3,12 +3,12 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: overmind start -f Procfile.development
+    command: bin/dev
     ports:
       - "3000:3000"
     volumes:
       - ./backend:/app
-      - bundle_cache:/usr/local/bundle
+      - /app/node_modules
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/tracker_development
@@ -21,10 +21,9 @@ services:
     build:
       context: ./mobile
       dockerfile: Dockerfile
+    command: npx expo start
     ports:
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
+      - "8081:8081"
     volumes:
       - ./mobile:/app
     environment:
@@ -53,4 +52,3 @@ services:
 volumes:
   postgres_data:
   redis_data:
-  bundle_cache:

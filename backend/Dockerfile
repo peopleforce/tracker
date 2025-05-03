@@ -17,11 +17,15 @@ ENV NODE_VERSION=18.20.4
 ENV NVM_VERSION=0.39.7
 ENV NVM_DIR=/root/.nvm
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+ENV PATH="/root/.config/yarn/global/node_modules/.bin:${PATH}"
 ENV NODE_OPTIONS=--max_old_space_size=3096
 
 # Rails app lives here
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package.json yarn.lock ./
 
 # Install base packages
 RUN apt-get update -qq && \
@@ -32,8 +36,9 @@ RUN apt-get update -qq && \
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
 RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION} && nvm use v${NODE_VERSION} && nvm alias default v${NODE_VERSION}
 
-# Install Yarn
+# Install Yarn and dependencies
 RUN npm install -g yarn
+RUN yarn install
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
@@ -44,10 +49,10 @@ RUN echo "gem: --no-document" >> ~/.gemrc
 RUN gem update --system
 RUN gem install bundler -v 2.5.4
 
-RUN yarn install
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 8 --retry 2
+RUN gem install foreman
 
 # Copy application code
 COPY . .

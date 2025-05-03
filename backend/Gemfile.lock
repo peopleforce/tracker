@@ -132,6 +132,7 @@ GEM
     ffi (1.17.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
+    foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hotwire-spark (0.1.12)
@@ -391,6 +392,7 @@ DEPENDENCIES
   devise
   devise-jwt
   dotenv-rails
+  foreman
   hotwire-spark
   jbuilder
   jsbundling-rails
