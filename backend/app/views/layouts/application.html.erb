@@ -8,10 +8,14 @@
 
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="bg-gray-50">
+  <body class="min-h-screen flex flex-col md:flex-row bg-[#f8f4ea]">
+    <% if !current_user %>
+      <%= yield %>
+    <% else %>
     <!-- Navigation Bar -->
     <nav class="bg-teal-600 shadow-lg">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,5 +72,7 @@
         <p class="text-center text-white">&copy; <%= Time.current.year %> HealthTracker. All rights reserved.</p>
       </div>
     </footer>
+<% end %>
   </body>
+
 </html> 

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   # Web routes
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   
   root "home#index"
   

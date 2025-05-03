@@ -1,0 +1,29 @@
+Backend & web frontend
+-------------------------------------
+
+Located at /backend
+
+Rails 8 application
+
+Use Vite for JS bundling and using jsbundling-rails gem.
+
+Do not use react anywhere.
+
+Use hotwire as a preference over javascript.
+
+Frontend should be using tailwind, and view components.
+
+Every component should be encapsualated with a View Component.
+
+Every change should generate new migration, touch update existing migration files.
+
+Use FlowBite library to build all components.
+
+Mobile
+-------------------------------------
+
+Located at /mobile
+
+Uses React Native using Expo framework.
+
+Use Tailwind as CSS framework.

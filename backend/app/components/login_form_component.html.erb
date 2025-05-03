@@ -1,0 +1,60 @@
+<div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-cream-100 via-cream-200 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-4xl font-extrabold tracking-tight text-teal-900 font-serif drop-shadow-sm">
+        Welcome to <span class="text-teal-600">HealthTracker</span>
+      </h2>
+      <p class="mt-2 text-center text-lg text-cream-900/80 font-medium">
+        Please sign in to your account
+      </p>
+    </div>
+    <div class="bg-cream-50/90 py-8 px-6 shadow-xl rounded-3xl sm:px-10 border border-cream-200">
+      <%= helpers.form_for(resource, as: resource_name, url: helpers.session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        <div>
+          <%= f.label :email, class: "block text-base font-semibold text-cream-900" %>
+          <div class="mt-1">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                class: "block w-full rounded-xl border border-cream-300 px-4 py-3 placeholder-cream-400 shadow-sm focus:border-teal-400 focus:ring-2 focus:ring-teal-200 bg-cream-100 text-cream-900 text-base transition" %>
+          </div>
+        </div>
+        <div>
+          <%= f.label :password, class: "block text-base font-semibold text-cream-900" %>
+          <div class="mt-1">
+            <%= f.password_field :password, autocomplete: "current-password",
+                class: "block w-full rounded-xl border border-cream-300 px-4 py-3 placeholder-cream-400 shadow-sm focus:border-teal-400 focus:ring-2 focus:ring-teal-200 bg-cream-100 text-cream-900 text-base transition" %>
+          </div>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <%= f.check_box :remember_me, class: "h-4 w-4 rounded border-cream-300 text-teal-600 focus:ring-teal-400" %>
+              <%= f.label :remember_me, class: "ml-2 block text-base text-cream-900" %>
+            </div>
+            <%- if devise_mapping.recoverable? %>
+              <%= link_to "Forgot your password?", helpers.new_password_path(resource_name),
+                  class: "text-base font-medium text-teal-600 hover:text-teal-500 transition" %>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <%= f.submit "Sign in",
+              class: "flex w-full justify-center rounded-xl border border-transparent bg-teal-500 py-3 px-4 text-base font-bold text-white shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 transition" %>
+        </div>
+      <% end %>
+      <div class="mt-8">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-cream-300"></div>
+          </div>
+          <div class="relative flex justify-center text-base">
+            <span class="bg-cream-50 px-3 text-cream-500">Don't have an account?</span>
+          </div>
+        </div>
+        <div class="mt-6">
+          <%= link_to "Sign up", helpers.new_registration_path(resource_name),
+              class: "flex w-full justify-center rounded-xl border border-teal-400 bg-white py-3 px-4 text-base font-bold text-teal-600 shadow hover:bg-cream-100 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 transition" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
