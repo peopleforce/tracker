@@ -6,6 +6,8 @@ import tailwindcss from '@tailwindcss/postcss7-compat'
 import autoprefixer from 'autoprefixer'
 import { readFile } from 'fs/promises'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 esbuild
   .context({
     entryPoints: [
@@ -42,7 +44,11 @@ esbuild
   .then((r) => {
     console.log('✨ Build succeeded.');
 
-    r.watch();
-    console.log('watching...');
+    if (isDevelopment) {
+      r.watch();
+      console.log('watching...');
+    } else {
+      r.dispose();
+    }
   })
   .catch(() => process.exit(1));

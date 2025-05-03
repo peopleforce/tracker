@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  mount MissionControl::Jobs::Engine, at: "/jobs"
-  
   # API routes
   namespace :api do
     devise_for :users, controllers: {
