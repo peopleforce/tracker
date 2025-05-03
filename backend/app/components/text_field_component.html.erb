@@ -1,0 +1,10 @@
+<div>
+  <%= @form.label @field_name, class: "block text-base font-semibold text-cream-900" %>
+  <div class="mt-1">
+    <%= @form.send("#{@type}_field", @field_name,
+        autocomplete: @autocomplete,
+        autofocus: @autofocus,
+        class: input_classes,
+        **@html_options) %>
+  </div>
+</div> 

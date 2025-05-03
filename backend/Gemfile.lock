@@ -129,14 +129,9 @@ GEM
       zeitwerk (~> 2.6)
     ed25519 (1.3.0)
     erubi (1.13.1)
-    et-orbi (1.2.11)
-      tzinfo
     ffi (1.17.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
-    fugit (1.11.1)
-      et-orbi (~> 1, >= 1.2.11)
-      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hotwire-spark (0.1.12)
@@ -145,6 +140,10 @@ GEM
       zeitwerk
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.1.0)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.8.0)
     irb (1.14.3)
       rdoc (>= 4.0.0)
@@ -187,6 +186,16 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
+    mission_control-jobs (1.0.2)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
+      irb (~> 1.13)
+      railties (>= 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.7.5)
     net-imap (0.5.4)
       date
@@ -216,6 +225,7 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -227,7 +237,6 @@ GEM
     public_suffix (6.0.1)
     puma (6.5.0)
       nio4r (~> 2.0)
-    raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
     rack-cors (2.0.2)
@@ -274,6 +283,8 @@ GEM
       ffi (~> 1.0)
     rdoc (6.10.0)
       psych (>= 4.0.0)
+    redis-client (0.24.0)
+      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
@@ -318,6 +329,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.3.9)
+      base64
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     solid_cable (3.0.5)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -327,17 +344,6 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (1.1.2)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      concurrent-ruby (>= 1.3.1)
-      fugit (~> 1.11.0)
-      railties (>= 7.1)
-      thor (~> 1.3.1)
-    sqlite3 (2.5.0)
-      mini_portile2 (~> 2.8.0)
-    sqlite3 (2.5.0-arm64-darwin)
-    sqlite3 (2.5.0-x86_64-linux-gnu)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -409,16 +415,17 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   kamal
+  mission_control-jobs
+  pg (~> 1.1)
   propshaft
   puma (>= 5.0)
   rack-cors
   rails (~> 8.0.1)
   rubocop-rails-omakase
   selenium-webdriver
+  sidekiq
   solid_cable
   solid_cache
-  solid_queue
-  sqlite3 (>= 2.1)
   stimulus-rails
   tailwindcss-rails
   thruster

@@ -1,1 +1,47 @@
-<%= render(LoginFormComponent.new(resource: resource, resource_name: resource_name, devise_mapping: devise_mapping)) %>
+<div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-cream-100 via-cream-200 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-4xl font-extrabold tracking-tight text-teal-900 font-serif drop-shadow-sm">
+        Welcome to <span class="text-teal-600">HealthTracker</span>
+      </h2>
+      <p class="mt-2 text-center text-lg text-cream-900/80 font-medium">
+        Please sign in to your account
+      </p>
+    </div>
+    <div class="bg-white py-8 px-6 shadow-xl rounded-3xl sm:px-10 border border-cream-200">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        <%= render(TextFieldComponent.new(
+          form: f,
+          field_name: :email,
+          type: "email",
+          autocomplete: "email",
+          autofocus: true
+        )) %>
+        <%= render(PasswordFieldComponent.new(form: f, field_name: :password)) %>
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center justify-between">
+            <% if devise_mapping.recoverable? %>
+              <%= link_to "Forgot your password?", new_password_path(resource_name),
+                          class: "text-base font-medium text-teal-600 hover:text-teal-500 transition" %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= render(SubmitButtonComponent.new(form: f, text: "Sign in")) %>
+      <% end %>
+      <div class="mt-8">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-cream-300"></div>
+          </div>
+          <div class="relative flex justify-center text-base">
+            <span class="bg-cream-50 px-3 text-cream-500">Don't have an account?</span>
+          </div>
+        </div>
+        <div class="mt-6">
+          <%= link_to "Sign up", new_registration_path(resource_name),
+                      class: "flex w-full justify-center rounded-xl border border-teal-400 bg-white py-3 px-4 text-base font-bold text-teal-600 shadow hover:bg-cream-100 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 transition" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
