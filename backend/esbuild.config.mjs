@@ -11,16 +11,16 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 esbuild
   .context({
     entryPoints: [
-      path.join(process.cwd(), "app/javascript/application.js")
+      "application.js"
     ],
     outdir: path.join(process.cwd(), "app/assets/builds"),
     absWorkingDir: process.cwd(),
     bundle: true,
+    minify: process.env.RAILS_ENV == "production",
     plugins: [
       rails()
     ],
-    resolveExtensions: ['.js', '.css'],
-    nodePaths: ['node_modules']
+    resolveExtensions: ['.js', '.css']
   })
   .then((r) => {
     console.log('✨ Build succeeded.');

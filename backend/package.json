@@ -18,8 +18,8 @@
   },
   "scripts": {
     "build": "yarn build:css & yarn build:js",
-    "build:js": "esbuild app/javascript/* --bundle --outdir=app/assets/builds",
-    "build:js:watch": "esbuild app/javascript/* --bundle --outdir=app/assets/builds --watch",
+    "build:js": "esbuild ./app/javascript/* --bundle --outdir=./app/assets/builds",
+    "build:js:watch": "esbuild ./app/javascript/* --bundle --outdir=./app/assets/builds --watch",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css",
     "build:css:watch": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css --watch"
   },
