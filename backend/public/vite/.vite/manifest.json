@@ -1,0 +1,20 @@
+{
+  "../../node_modules/@rails/actioncable/src/index.js": {
+    "file": "assets/index-lVzqX2jn.js",
+    "name": "index",
+    "src": "../../node_modules/@rails/actioncable/src/index.js",
+    "isDynamicEntry": true
+  },
+  "../javascript/application.js": {
+    "file": "assets/application-DnN3Pt1R.js",
+    "name": "application",
+    "src": "../javascript/application.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "../../node_modules/@rails/actioncable/src/index.js"
+    ],
+    "css": [
+      "assets/application-BmAVGTu2.css"
+    ]
+  }
+}

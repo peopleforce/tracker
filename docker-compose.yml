@@ -11,7 +11,7 @@ services:
       - /app/node_modules
     environment:
       - RAILS_ENV=development
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/tracker_development
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/tracker_development
       - REDIS_URL=redis://redis:6379/1
     depends_on:
       - postgres
@@ -36,7 +36,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=tracker_development
     volumes:
